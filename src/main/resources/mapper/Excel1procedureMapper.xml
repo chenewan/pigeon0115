@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel1procedureMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel1procedure">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+    <result column="materielno" jdbcType="VARCHAR" property="materielno" />
+    <result column="addwater" jdbcType="VARCHAR" property="addwater" />
+    <result column="manualfeeding" jdbcType="VARCHAR" property="manualfeeding" />
+    <result column="singleweight" jdbcType="VARCHAR" property="singleweight" />
+    <result column="cumulativeweight" jdbcType="VARCHAR" property="cumulativeweight" />
+    <result column="vacuumsuction" jdbcType="VARCHAR" property="vacuumsuction" />
+    <result column="stir" jdbcType="VARCHAR" property="stir" />
+    <result column="temperaturecontrol" jdbcType="VARCHAR" property="temperaturecontrol" />
+    <result column="pressurecontrol" jdbcType="VARCHAR" property="pressurecontrol" />
+    <result column="stepnum" jdbcType="VARCHAR" property="stepnum" />
+    <result column="recordno" jdbcType="VARCHAR" property="recordno" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    pid, process, begindt, materielno, addwater, manualfeeding, singleweight, cumulativeweight,
+    vacuumsuction, stir, temperaturecontrol, pressurecontrol, stepnum, recordno, username, countnum
+  </sql>
+
+  <select id="selectExcel1procedureByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel1procedure
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel1procedure
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel1procedure
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel1procedure
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel1procedure">
+    insert into excel1procedure(pid, process,
+      begindt, materielno, addwater, 
+      manualfeeding, singleweight, cumulativeweight, 
+      vacuumsuction, stir, temperaturecontrol, 
+      pressurecontrol, stepnum, recordno, 
+      username, countnum)
+    values (#{pid,jdbcType=BIGINT}, #{process,jdbcType=VARCHAR},
+      #{begindt,jdbcType=CHAR}, #{materielno,jdbcType=VARCHAR}, #{addwater,jdbcType=VARCHAR}, 
+      #{manualfeeding,jdbcType=VARCHAR}, #{singleweight,jdbcType=VARCHAR}, #{cumulativeweight,jdbcType=VARCHAR}, 
+      #{vacuumsuction,jdbcType=VARCHAR}, #{stir,jdbcType=VARCHAR}, #{temperaturecontrol,jdbcType=VARCHAR}, 
+      #{pressurecontrol,jdbcType=VARCHAR}, #{stepnum,jdbcType=VARCHAR}, #{recordno,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{countnum,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertExcel1procedureList" parameterType="java.util.List">
+    insert into excel1procedure( pid, process,
+    begindt, materielno, addwater,
+    manualfeeding, singleweight, cumulativeweight,
+    vacuumsuction, stir, temperaturecontrol,
+    pressurecontrol, stepnum, recordno,
+    username, countnum )values
+    <foreach collection="excel1procedureList" index="index" item="item" separator=",">
+      (#{item.pid,jdbcType=INTEGER}, #{item.process,jdbcType=VARCHAR},
+      #{item.begindt,jdbcType=CHAR}, #{item.materielno,jdbcType=VARCHAR}, #{item.addwater,jdbcType=VARCHAR},
+      #{item.manualfeeding,jdbcType=VARCHAR}, #{item.singleweight,jdbcType=VARCHAR}, #{item.cumulativeweight,jdbcType=VARCHAR},
+      #{item.vacuumsuction,jdbcType=VARCHAR}, #{item.stir,jdbcType=VARCHAR}, #{item.temperaturecontrol,jdbcType=VARCHAR},
+      #{item.pressurecontrol,jdbcType=VARCHAR}, #{item.stepnum,jdbcType=VARCHAR}, #{item.recordno,jdbcType=VARCHAR},
+      #{item.username,jdbcType=VARCHAR}, #{item.countnum,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+
+  <!--<insert id="insertExcel1procedureList" parameterType="java.util.List">-->
+    <!--<foreach collection="excel1procedureList" index="index" item="item" separator=";">-->
+    <!--insert into excel1procedure( pid, process,-->
+    <!--begindt, materielno, addwater,-->
+    <!--manualfeeding, singleweight, cumulativeweight,-->
+    <!--vacuumsuction, stir, temperaturecontrol,-->
+    <!--pressurecontrol, stepnum, recordno,-->
+    <!--username, countnum )values-->
+      <!--(#{item.pid,jdbcType=INTEGER}, #{item.process,jdbcType=VARCHAR},-->
+      <!--#{item.begindt,jdbcType=CHAR}, #{item.materielno,jdbcType=VARCHAR}, #{item.addwater,jdbcType=VARCHAR},-->
+      <!--#{item.manualfeeding,jdbcType=VARCHAR}, #{item.singleweight,jdbcType=VARCHAR}, #{item.cumulativeweight,jdbcType=VARCHAR},-->
+      <!--#{item.vacuumsuction,jdbcType=VARCHAR}, #{item.stir,jdbcType=VARCHAR}, #{item.temperaturecontrol,jdbcType=VARCHAR},-->
+      <!--#{item.pressurecontrol,jdbcType=VARCHAR}, #{item.stepnum,jdbcType=VARCHAR}, #{item.recordno,jdbcType=VARCHAR},-->
+      <!--#{item.username,jdbcType=VARCHAR}, #{item.countnum,jdbcType=INTEGER})-->
+    <!--</foreach>-->
+  <!--</insert>-->
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel1procedure">
+    <foreach collection="excel1procedureList" index="index" item="item" separator=";">
+      insert into  excel1procedure (
+      <include refid="Base_Column_List" />
+      )
+      SELECT #{item.pid,jdbcType=INTEGER}, #{item.process,jdbcType=VARCHAR},
+      #{item.begindt,jdbcType=CHAR}, #{item.materielno,jdbcType=VARCHAR}, #{item.addwater,jdbcType=VARCHAR},
+      #{item.manualfeeding,jdbcType=VARCHAR}, #{item.singleweight,jdbcType=VARCHAR}, #{item.cumulativeweight,jdbcType=VARCHAR},
+      #{item.vacuumsuction,jdbcType=VARCHAR}, #{item.stir,jdbcType=VARCHAR}, #{item.temperaturecontrol,jdbcType=VARCHAR},
+      #{item.pressurecontrol,jdbcType=VARCHAR}, #{item.stepnum,jdbcType=VARCHAR}, #{item.recordno,jdbcType=VARCHAR},
+      #{item.username,jdbcType=VARCHAR}, #{item.countnum,jdbcType=INTEGER}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel1procedure WHERE begindt= #{item.begindt,jdbcType=CHAR} and recordno = #{item.recordno,jdbcType=VARCHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel1procedure">
+    insert into excel1procedure
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="begindt != null">
+        begindt,
+      </if>
+      <if test="materielno != null">
+        materielno,
+      </if>
+      <if test="addwater != null">
+        addwater,
+      </if>
+      <if test="manualfeeding != null">
+        manualfeeding,
+      </if>
+      <if test="singleweight != null">
+        singleweight,
+      </if>
+      <if test="cumulativeweight != null">
+        cumulativeweight,
+      </if>
+      <if test="vacuumsuction != null">
+        vacuumsuction,
+      </if>
+      <if test="stir != null">
+        stir,
+      </if>
+      <if test="temperaturecontrol != null">
+        temperaturecontrol,
+      </if>
+      <if test="pressurecontrol != null">
+        pressurecontrol,
+      </if>
+      <if test="stepnum != null">
+        stepnum,
+      </if>
+      <if test="recordno != null">
+        recordno,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="begindt != null">
+        #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="materielno != null">
+        #{materielno,jdbcType=VARCHAR},
+      </if>
+      <if test="addwater != null">
+        #{addwater,jdbcType=VARCHAR},
+      </if>
+      <if test="manualfeeding != null">
+        #{manualfeeding,jdbcType=VARCHAR},
+      </if>
+      <if test="singleweight != null">
+        #{singleweight,jdbcType=VARCHAR},
+      </if>
+      <if test="cumulativeweight != null">
+        #{cumulativeweight,jdbcType=VARCHAR},
+      </if>
+      <if test="vacuumsuction != null">
+        #{vacuumsuction,jdbcType=VARCHAR},
+      </if>
+      <if test="stir != null">
+        #{stir,jdbcType=VARCHAR},
+      </if>
+      <if test="temperaturecontrol != null">
+        #{temperaturecontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="pressurecontrol != null">
+        #{pressurecontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="stepnum != null">
+        #{stepnum,jdbcType=VARCHAR},
+      </if>
+      <if test="recordno != null">
+        #{recordno,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel1procedure">
+    update excel1procedure
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="process != null">
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="begindt != null">
+        begindt = #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="materielno != null">
+        materielno = #{materielno,jdbcType=VARCHAR},
+      </if>
+      <if test="addwater != null">
+        addwater = #{addwater,jdbcType=VARCHAR},
+      </if>
+      <if test="manualfeeding != null">
+        manualfeeding = #{manualfeeding,jdbcType=VARCHAR},
+      </if>
+      <if test="singleweight != null">
+        singleweight = #{singleweight,jdbcType=VARCHAR},
+      </if>
+      <if test="cumulativeweight != null">
+        cumulativeweight = #{cumulativeweight,jdbcType=VARCHAR},
+      </if>
+      <if test="vacuumsuction != null">
+        vacuumsuction = #{vacuumsuction,jdbcType=VARCHAR},
+      </if>
+      <if test="stir != null">
+        stir = #{stir,jdbcType=VARCHAR},
+      </if>
+      <if test="temperaturecontrol != null">
+        temperaturecontrol = #{temperaturecontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="pressurecontrol != null">
+        pressurecontrol = #{pressurecontrol,jdbcType=VARCHAR},
+      </if>
+      <if test="stepnum != null">
+        stepnum = #{stepnum,jdbcType=VARCHAR},
+      </if>
+      <if test="recordno != null">
+        recordno = #{recordno,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel1procedure">
+    update excel1procedure
+    set pid = #{pid,jdbcType=BIGINT},
+      process = #{process,jdbcType=VARCHAR},
+      begindt = #{begindt,jdbcType=CHAR},
+      materielno = #{materielno,jdbcType=VARCHAR},
+      addwater = #{addwater,jdbcType=VARCHAR},
+      manualfeeding = #{manualfeeding,jdbcType=VARCHAR},
+      singleweight = #{singleweight,jdbcType=VARCHAR},
+      cumulativeweight = #{cumulativeweight,jdbcType=VARCHAR},
+      vacuumsuction = #{vacuumsuction,jdbcType=VARCHAR},
+      stir = #{stir,jdbcType=VARCHAR},
+      temperaturecontrol = #{temperaturecontrol,jdbcType=VARCHAR},
+      pressurecontrol = #{pressurecontrol,jdbcType=VARCHAR},
+      stepnum = #{stepnum,jdbcType=VARCHAR},
+      recordno = #{recordno,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

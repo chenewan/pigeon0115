@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel20dataMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel20data">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+    <result column="value1" jdbcType="DECIMAL" property="value1" />
+    <result column="value2" jdbcType="DECIMAL" property="value2" />
+    <result column="value3" jdbcType="DECIMAL" property="value3" />
+    <result column="value4" jdbcType="DECIMAL" property="value4" />
+    <result column="value5" jdbcType="DECIMAL" property="value5" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     pid, begindt, value1, value2, value3, value4, value5, countnum
+  </sql>
+
+  <select id="selectExcel20dataByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel20data
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel20data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel20data
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel20data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel20data">
+    insert into excel20data(pid, begindt,
+      value1, value2, value3, 
+      value4, value5, countnum
+      )
+    values (#{pid,jdbcType=BIGINT}, #{begindt,jdbcType=CHAR},
+      #{value1,jdbcType=DECIMAL}, #{value2,jdbcType=DECIMAL}, #{value3,jdbcType=DECIMAL}, 
+      #{value4,jdbcType=DECIMAL}, #{value5,jdbcType=DECIMAL}, #{countnum,jdbcType=BIGINT}
+      )
+  </insert>
+
+  <insert id="insertExcel20dataList" parameterType="java.util.List">
+    insert into excel20data (
+    <include refid="Base_Column_List" />
+    )values
+    <foreach collection="excel20dataList" index="index" item="item" separator=",">
+      (
+      #{item.pid,jdbcType=BIGINT}, #{item.begindt,jdbcType=CHAR},
+      #{item.value1,jdbcType=DECIMAL}, #{item.value2,jdbcType=DECIMAL}, #{item.value3,jdbcType=DECIMAL},
+      #{item.value4,jdbcType=DECIMAL}, #{item.value5,jdbcType=DECIMAL}, #{item.countnum,jdbcType=BIGINT}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel20data">
+    <foreach collection="excel20dataList" index="index" item="item" separator=";">
+      insert into  excel20data (
+      <include refid="Base_Column_List" />
+      )
+      SELECT
+      #{item.pid,jdbcType=BIGINT}, #{item.begindt,jdbcType=CHAR},
+      #{item.value1,jdbcType=DECIMAL}, #{item.value2,jdbcType=DECIMAL}, #{item.value3,jdbcType=DECIMAL},
+      #{item.value4,jdbcType=DECIMAL}, #{item.value5,jdbcType=DECIMAL}, #{item.countnum,jdbcType=BIGINT}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel20data WHERE begindt= #{item.begindt,jdbcType=CHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel20data">
+    insert into excel20data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="begindt != null">
+        begindt,
+      </if>
+      <if test="value1 != null">
+        value1,
+      </if>
+      <if test="value2 != null">
+        value2,
+      </if>
+      <if test="value3 != null">
+        value3,
+      </if>
+      <if test="value4 != null">
+        value4,
+      </if>
+      <if test="value5 != null">
+        value5,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="value1 != null">
+        #{value1,jdbcType=DECIMAL},
+      </if>
+      <if test="value2 != null">
+        #{value2,jdbcType=DECIMAL},
+      </if>
+      <if test="value3 != null">
+        #{value3,jdbcType=DECIMAL},
+      </if>
+      <if test="value4 != null">
+        #{value4,jdbcType=DECIMAL},
+      </if>
+      <if test="value5 != null">
+        #{value5,jdbcType=DECIMAL},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel20data">
+    update excel20data
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        begindt = #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="value1 != null">
+        value1 = #{value1,jdbcType=DECIMAL},
+      </if>
+      <if test="value2 != null">
+        value2 = #{value2,jdbcType=DECIMAL},
+      </if>
+      <if test="value3 != null">
+        value3 = #{value3,jdbcType=DECIMAL},
+      </if>
+      <if test="value4 != null">
+        value4 = #{value4,jdbcType=DECIMAL},
+      </if>
+      <if test="value5 != null">
+        value5 = #{value5,jdbcType=DECIMAL},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel20data">
+    update excel20data
+    set pid = #{pid,jdbcType=BIGINT},
+      begindt = #{begindt,jdbcType=CHAR},
+      value1 = #{value1,jdbcType=DECIMAL},
+      value2 = #{value2,jdbcType=DECIMAL},
+      value3 = #{value3,jdbcType=DECIMAL},
+      value4 = #{value4,jdbcType=DECIMAL},
+      value5 = #{value5,jdbcType=DECIMAL},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

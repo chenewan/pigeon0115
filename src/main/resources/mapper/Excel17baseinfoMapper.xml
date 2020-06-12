@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel17baseinfoMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel17baseinfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+    <result column="pwtemp" jdbcType="VARCHAR" property="pwtemp" />
+    <result column="pwtime" jdbcType="VARCHAR" property="pwtime" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     begindt, pwtemp, pwtime, username, countnum
+  </sql>
+
+  <select id="selectExcel17baseinfoByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel17baseinfo
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel17baseinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel17baseinfo
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel17baseinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel17baseinfo">
+    insert into excel17baseinfo(begindt, pwtemp,
+      pwtime, username, countnum
+      )
+    values (#{begindt,jdbcType=CHAR}, #{pwtemp,jdbcType=VARCHAR},
+      #{pwtime,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{countnum,jdbcType=BIGINT}
+      )
+  </insert>
+
+  <insert id="insertExcel17baseinfoList" parameterType="java.util.List">
+    insert into excel17baseinfo (
+    <include refid="Base_Column_List" />
+    )values
+    <foreach collection="excel17baseinfoList" index="index" item="item" separator=",">
+      (
+      #{item.begindt,jdbcType=CHAR}, #{item.pwtemp,jdbcType=VARCHAR},
+      #{item.pwtime,jdbcType=VARCHAR}, #{item.username,jdbcType=VARCHAR}, #{item.countnum,jdbcType=BIGINT}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel17baseinfo">
+    <foreach collection="excel17baseinfoList" index="index" item="item" separator=";">
+      insert into  excel17baseinfo (
+      <include refid="Base_Column_List" />
+      )
+      SELECT
+      #{item.begindt,jdbcType=CHAR}, #{item.pwtemp,jdbcType=VARCHAR},
+      #{item.pwtime,jdbcType=VARCHAR}, #{item.username,jdbcType=VARCHAR}, #{item.countnum,jdbcType=BIGINT}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel17baseinfo WHERE begindt= #{item.begindt,jdbcType=CHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel17baseinfo">
+    insert into excel17baseinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="begindt != null">
+        begindt,
+      </if>
+      <if test="pwtemp != null">
+        pwtemp,
+      </if>
+      <if test="pwtime != null">
+        pwtime,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="pwtemp != null">
+        #{pwtemp,jdbcType=VARCHAR},
+      </if>
+      <if test="pwtime != null">
+        #{pwtime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel17baseinfo">
+    update excel17baseinfo
+    <set>
+      <if test="begindt != null">
+        begindt = #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="pwtemp != null">
+        pwtemp = #{pwtemp,jdbcType=VARCHAR},
+      </if>
+      <if test="pwtime != null">
+        pwtime = #{pwtime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel17baseinfo">
+    update excel17baseinfo
+    set begindt = #{begindt,jdbcType=CHAR},
+      pwtemp = #{pwtemp,jdbcType=VARCHAR},
+      pwtime = #{pwtime,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

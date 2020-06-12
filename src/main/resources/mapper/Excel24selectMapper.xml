@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel24selectMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel24select">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="isselect" jdbcType="VARCHAR" property="isselect" />
+    <result column="circulatingflow" jdbcType="VARCHAR" property="circulatingflow" />
+    <result column="isheating" jdbcType="VARCHAR" property="isheating" />
+    <result column="heattemp" jdbcType="VARCHAR" property="heattemp" />
+    <result column="washtime" jdbcType="VARCHAR" property="washtime" />
+    <result column="washnum" jdbcType="VARCHAR" property="washnum" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     pid, process, isselect, circulatingflow, isheating, heattemp, washtime, washnum,
+    countnum ,begindt
+  </sql>
+
+  <select id="selectExcel24selectByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel24select
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel24select
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel24select
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel24select
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel24select">
+    insert into excel24select(pid, process,
+      isselect, circulatingflow, isheating, 
+      heattemp, washtime, washnum, 
+      countnum)
+    values (#{pid,jdbcType=BIGINT}, #{process,jdbcType=VARCHAR},
+      #{isselect,jdbcType=VARCHAR}, #{circulatingflow,jdbcType=VARCHAR}, #{isheating,jdbcType=VARCHAR}, 
+      #{heattemp,jdbcType=VARCHAR}, #{washtime,jdbcType=VARCHAR}, #{washnum,jdbcType=VARCHAR}, 
+      #{countnum,jdbcType=BIGINT})
+  </insert>
+
+  <insert id="insertExcel24selectList" parameterType="java.util.List">
+    insert into excel24select (
+    <include refid="Base_Column_List" />
+    )values
+    <foreach collection="excel24selectList" index="index" item="item" separator=",">
+      (
+      #{item.pid,jdbcType=BIGINT}, #{item.process,jdbcType=VARCHAR},
+      #{item.isselect,jdbcType=VARCHAR}, #{item.circulatingflow,jdbcType=VARCHAR}, #{item.isheating,jdbcType=VARCHAR},
+      #{item.heattemp,jdbcType=VARCHAR}, #{item.washtime,jdbcType=VARCHAR}, #{item.washnum,jdbcType=VARCHAR},
+      #{item.countnum,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel24select">
+    <foreach collection="excel24selectList" index="index" item="item" separator=";">
+      insert into  excel24select (
+      <include refid="Base_Column_List" />
+      )
+      SELECT
+      #{item.pid,jdbcType=BIGINT}, #{item.process,jdbcType=VARCHAR},
+      #{item.isselect,jdbcType=VARCHAR}, #{item.circulatingflow,jdbcType=VARCHAR}, #{item.isheating,jdbcType=VARCHAR},
+      #{item.heattemp,jdbcType=VARCHAR}, #{item.washtime,jdbcType=VARCHAR}, #{item.washnum,jdbcType=VARCHAR},
+      #{item.countnum,jdbcType=BIGINT}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel24select WHERE begindt= #{item.begindt,jdbcType=CHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel24select">
+    insert into excel24select
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="isselect != null">
+        isselect,
+      </if>
+      <if test="circulatingflow != null">
+        circulatingflow,
+      </if>
+      <if test="isheating != null">
+        isheating,
+      </if>
+      <if test="heattemp != null">
+        heattemp,
+      </if>
+      <if test="washtime != null">
+        washtime,
+      </if>
+      <if test="washnum != null">
+        washnum,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="isselect != null">
+        #{isselect,jdbcType=VARCHAR},
+      </if>
+      <if test="circulatingflow != null">
+        #{circulatingflow,jdbcType=VARCHAR},
+      </if>
+      <if test="isheating != null">
+        #{isheating,jdbcType=VARCHAR},
+      </if>
+      <if test="heattemp != null">
+        #{heattemp,jdbcType=VARCHAR},
+      </if>
+      <if test="washtime != null">
+        #{washtime,jdbcType=VARCHAR},
+      </if>
+      <if test="washnum != null">
+        #{washnum,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel24select">
+    update excel24select
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="process != null">
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="isselect != null">
+        isselect = #{isselect,jdbcType=VARCHAR},
+      </if>
+      <if test="circulatingflow != null">
+        circulatingflow = #{circulatingflow,jdbcType=VARCHAR},
+      </if>
+      <if test="isheating != null">
+        isheating = #{isheating,jdbcType=VARCHAR},
+      </if>
+      <if test="heattemp != null">
+        heattemp = #{heattemp,jdbcType=VARCHAR},
+      </if>
+      <if test="washtime != null">
+        washtime = #{washtime,jdbcType=VARCHAR},
+      </if>
+      <if test="washnum != null">
+        washnum = #{washnum,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel24select">
+    update excel24select
+    set pid = #{pid,jdbcType=BIGINT},
+      process = #{process,jdbcType=VARCHAR},
+      isselect = #{isselect,jdbcType=VARCHAR},
+      circulatingflow = #{circulatingflow,jdbcType=VARCHAR},
+      isheating = #{isheating,jdbcType=VARCHAR},
+      heattemp = #{heattemp,jdbcType=VARCHAR},
+      washtime = #{washtime,jdbcType=VARCHAR},
+      washnum = #{washnum,jdbcType=VARCHAR},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

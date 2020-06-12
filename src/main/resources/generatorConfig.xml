@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 本地数据库驱动程序jar包的全路径  使用时改称自己的本地路径-->
+    <!--MySQL-->
+
+    <!--<classPathEntry location="E:\项目\190626贝亲\200106\emg\src\main\resources\lib\mysql-connector-java-5.1.6-bin.jar"/>-->
+    <!--SQL Server-->
+    <classPathEntry location="E:\项目\190626贝亲\200106\emg\src\main\resources\lib\mssql-jdbc-6.2.2.jre8.jar"/>
+    <context id="context" targetRuntime="MyBatis3">
+        <!--定义生成的java类的编码格式-->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!--suppressAllComments 设置为true 则不再生成注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 -->
+
+
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://chenlisong.iok.la:1433;DatabaseName=pigeon"
+                        userId="byd"
+                        password="byd"/>
+        <!--<jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"-->
+                        <!--connectionURL="jdbc:sqlserver://192.168.0.201:1433;DatabaseName=test02"-->
+                        <!--userId="byd"-->
+                        <!--password="byd"/>-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://192.168.0.201:3306/table1?serverTimezone=GMT%2B8"-->
+                        <!--userId="root"-->
+                        <!--password="Beyond88089880"/>-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://192.168.0.201:3306/table2?serverTimezone=GMT%2B8"-->
+                        <!--userId="root"-->
+                        <!--password="Beyond88089880"/>-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://192.168.0.201:3306/table3?serverTimezone=GMT%2B8"-->
+                        <!--userId="root"-->
+                        <!--password="Beyond88089880"/>-->
+
+
+
+
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.byd.emg.pojo" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+        </sqlMapGenerator>
+
+        <!--dbone dbtwo dbthr dbfor dbfiv-->
+
+        <!-- Mapper 接口文件的位置 -->
+        <javaClientGenerator targetPackage="com.byd.emg.mapper" targetProject="src/main/java" type="XMLMAPPER">
+        </javaClientGenerator>
+
+        <!-- table指定每个生成表的生成策略  表名 和 model实体类名-->
+        <!--<table tableName="primarytable" domainObjectName="Primarytable"         enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+        <!--<table tableName="testconnect" domainObjectName="Testconnect"         enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>-->
+
+        <table tableName="excel10baseinfo" domainObjectName="Excel10baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel10data" domainObjectName="Excel10data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel11baseinfo" domainObjectName="Excel11baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel11data" domainObjectName="Excel11data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel11select" domainObjectName="Excel11select" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel12baseinfo" domainObjectName="Excel12baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel12beginend" domainObjectName="Excel12beginend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel12data" domainObjectName="Excel12data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel13baseinfo" domainObjectName="Excel13baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel13procedure" domainObjectName="Excel13procedure" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel14baseinfo" domainObjectName="Excel14baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel14data" domainObjectName="Excel14data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel15baseinfo" domainObjectName="Excel15baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel15data" domainObjectName="Excel15data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel15select" domainObjectName="Excel15select" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel16baseinfo" domainObjectName="Excel16baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel16beginend" domainObjectName="Excel16beginend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel16data" domainObjectName="Excel16data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel17baseinfo" domainObjectName="Excel17baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel17data" domainObjectName="Excel17data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel18baseinfo" domainObjectName="Excel18baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel18data" domainObjectName="Excel18data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel19baseinfo" domainObjectName="Excel19baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel19data" domainObjectName="Excel19data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel1baseinfo" domainObjectName="Excel1baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel1procedure" domainObjectName="Excel1procedure" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel20baseinfo" domainObjectName="Excel20baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel20data" domainObjectName="Excel20data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel21baseinfo" domainObjectName="Excel21baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel21data" domainObjectName="Excel21data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel22baseinfo" domainObjectName="Excel22baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel22data" domainObjectName="Excel22data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel23baseinfo" domainObjectName="Excel23baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel23data" domainObjectName="Excel23data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel24baseinfo" domainObjectName="Excel24baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel24data" domainObjectName="Excel24data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel24select" domainObjectName="Excel24select" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel25baseinfo" domainObjectName="Excel25baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel25data" domainObjectName="Excel25data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel26baseinfo" domainObjectName="Excel26baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel26data" domainObjectName="Excel26data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel2baseinfo" domainObjectName="Excel2baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel2data" domainObjectName="Excel2data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel3baseinfo" domainObjectName="Excel3baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel3data" domainObjectName="Excel3data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel3select" domainObjectName="Excel3select" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel4baseinfo" domainObjectName="Excel4baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel4beginend" domainObjectName="Excel4beginend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel4data" domainObjectName="Excel4data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel5baseinfo" domainObjectName="Excel5baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel5procedure" domainObjectName="Excel5procedure" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel6baseinfo" domainObjectName="Excel6baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel6data" domainObjectName="Excel6data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel7baseinfo" domainObjectName="Excel7baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel7data" domainObjectName="Excel7data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel7select" domainObjectName="Excel7select" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel8baseinfo" domainObjectName="Excel8baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel8beginend" domainObjectName="Excel8beginend" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel8data" domainObjectName="Excel8data" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel9baseinfo" domainObjectName="Excel9baseinfo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+        <table tableName="excel9procedure" domainObjectName="Excel9procedure" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+
+    </context>
+</generatorConfiguration>

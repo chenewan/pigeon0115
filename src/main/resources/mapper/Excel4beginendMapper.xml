@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel4beginendMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel4beginend">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+    <result column="value1" jdbcType="DECIMAL" property="value1" />
+    <result column="value2" jdbcType="DECIMAL" property="value2" />
+    <result column="value3" jdbcType="DECIMAL" property="value3" />
+    <result column="value4" jdbcType="DECIMAL" property="value4" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     pid, begindt, value1, value2, value3, value4, countnum
+  </sql>
+
+  <select id="selectExcel4beginendByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel4beginend
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel4beginend
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel4beginend
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel4beginend
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel4beginend">
+    insert into excel4beginend(pid, begindt,
+      value1, value2, value3, 
+      value4, countnum)
+    values (#{pid,jdbcType=BIGINT}, #{begindt,jdbcType=CHAR},
+      #{value1,jdbcType=DECIMAL}, #{value2,jdbcType=DECIMAL}, #{value3,jdbcType=DECIMAL}, 
+      #{value4,jdbcType=DECIMAL}, #{countnum,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertExcel4beginendList" parameterType="java.util.List">
+    insert into excel4beginend (
+    <include refid="Base_Column_List" />
+    )values
+    <foreach collection="excel4beginendList" index="index" item="item" separator=",">
+      (#{item.pid,jdbcType=BIGINT}, #{item.begindt,jdbcType=CHAR},
+      #{item.value1,jdbcType=DECIMAL}, #{item.value2,jdbcType=DECIMAL}, #{item.value3,jdbcType=DECIMAL},
+      #{item.value4,jdbcType=DECIMAL}, #{item.countnum,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel4beginend">
+    <foreach collection="excel4beginendList" index="index" item="item" separator=";">
+      insert into  excel4beginend (
+      <include refid="Base_Column_List" />
+      )
+      SELECT
+      #{item.pid,jdbcType=BIGINT}, #{item.begindt,jdbcType=CHAR},
+      #{item.value1,jdbcType=DECIMAL}, #{item.value2,jdbcType=DECIMAL}, #{item.value3,jdbcType=DECIMAL},
+      #{item.value4,jdbcType=DECIMAL}, #{item.countnum,jdbcType=BIGINT}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel4beginend WHERE begindt= #{item.begindt,jdbcType=CHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel4beginend">
+    insert into excel4beginend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="begindt != null">
+        begindt,
+      </if>
+      <if test="value1 != null">
+        value1,
+      </if>
+      <if test="value2 != null">
+        value2,
+      </if>
+      <if test="value3 != null">
+        value3,
+      </if>
+      <if test="value4 != null">
+        value4,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="value1 != null">
+        #{value1,jdbcType=DECIMAL},
+      </if>
+      <if test="value2 != null">
+        #{value2,jdbcType=DECIMAL},
+      </if>
+      <if test="value3 != null">
+        #{value3,jdbcType=DECIMAL},
+      </if>
+      <if test="value4 != null">
+        #{value4,jdbcType=DECIMAL},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel4beginend">
+    update excel4beginend
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        begindt = #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="value1 != null">
+        value1 = #{value1,jdbcType=DECIMAL},
+      </if>
+      <if test="value2 != null">
+        value2 = #{value2,jdbcType=DECIMAL},
+      </if>
+      <if test="value3 != null">
+        value3 = #{value3,jdbcType=DECIMAL},
+      </if>
+      <if test="value4 != null">
+        value4 = #{value4,jdbcType=DECIMAL},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel4beginend">
+    update excel4beginend
+    set pid = #{pid,jdbcType=BIGINT},
+      begindt = #{begindt,jdbcType=CHAR},
+      value1 = #{value1,jdbcType=DECIMAL},
+      value2 = #{value2,jdbcType=DECIMAL},
+      value3 = #{value3,jdbcType=DECIMAL},
+      value4 = #{value4,jdbcType=DECIMAL},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

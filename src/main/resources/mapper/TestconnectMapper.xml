@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.TestconnectMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Testconnect">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="dt" jdbcType="VARCHAR" property="dt" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="cpuname" jdbcType="VARCHAR" property="cpuname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dt, state, cpuname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from testconnect
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from testconnect
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Testconnect">
+    insert into testconnect (id, dt, state, 
+      cpuname)
+    values (#{id,jdbcType=BIGINT}, #{dt,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{cpuname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Testconnect">
+    insert into testconnect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dt != null">
+        dt,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="cpuname != null">
+        cpuname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dt != null">
+        #{dt,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="cpuname != null">
+        #{cpuname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Testconnect">
+    update testconnect
+    <set>
+      <if test="dt != null">
+        dt = #{dt,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="cpuname != null">
+        cpuname = #{cpuname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Testconnect">
+    update testconnect
+    set dt = #{dt,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      cpuname = #{cpuname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

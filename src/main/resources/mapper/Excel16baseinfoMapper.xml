@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel16baseinfoMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel16baseinfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+    <result column="recipename" jdbcType="VARCHAR" property="recipename" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="batch" jdbcType="VARCHAR" property="batch" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     begindt, recipename, weight, batch, username, countnum
+  </sql>
+
+  <select id="selectExcel16baseinfoByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel16baseinfo
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel16baseinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel16baseinfo
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel16baseinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel16baseinfo">
+    insert into excel16baseinfo(begindt, recipename,
+      weight, batch, username, 
+      countnum)
+    values (#{begindt,jdbcType=CHAR}, #{recipename,jdbcType=VARCHAR},
+      #{weight,jdbcType=VARCHAR}, #{batch,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{countnum,jdbcType=BIGINT})
+  </insert>
+
+  <insert id="insertExcel16baseinfoList" parameterType="java.util.List">
+    insert into excel16baseinfo (
+    <include refid="Base_Column_List" />
+    )values
+    <foreach collection="excel16baseinfoList" index="index" item="item" separator=",">
+      (
+      #{item.begindt,jdbcType=CHAR}, #{item.recipename,jdbcType=VARCHAR},
+      #{item.weight,jdbcType=VARCHAR}, #{item.batch,jdbcType=VARCHAR}, #{item.username,jdbcType=VARCHAR},
+      #{item.countnum,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel16baseinfo">
+    <foreach collection="excel16baseinfoList" index="index" item="item" separator=";">
+      insert into  excel16baseinfo (
+      <include refid="Base_Column_List" />
+      )
+      SELECT
+      #{item.begindt,jdbcType=CHAR}, #{item.recipename,jdbcType=VARCHAR},
+      #{item.weight,jdbcType=VARCHAR}, #{item.batch,jdbcType=VARCHAR}, #{item.username,jdbcType=VARCHAR},
+      #{item.countnum,jdbcType=BIGINT}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel16baseinfo WHERE begindt= #{item.begindt,jdbcType=CHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel16baseinfo">
+    insert into excel16baseinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="begindt != null">
+        begindt,
+      </if>
+      <if test="recipename != null">
+        recipename,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="batch != null">
+        batch,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="recipename != null">
+        #{recipename,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null">
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel16baseinfo">
+    update excel16baseinfo
+    <set>
+      <if test="begindt != null">
+        begindt = #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="recipename != null">
+        recipename = #{recipename,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="batch != null">
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel16baseinfo">
+    update excel16baseinfo
+    set begindt = #{begindt,jdbcType=CHAR},
+      recipename = #{recipename,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      batch = #{batch,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

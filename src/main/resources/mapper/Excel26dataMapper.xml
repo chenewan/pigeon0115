@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byd.emg.mapper.Excel26dataMapper">
+  <resultMap id="BaseResultMap" type="com.byd.emg.pojo.Excel26data">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="begindt" jdbcType="CHAR" property="begindt" />
+    <result column="value1" jdbcType="VARCHAR" property="value1" />
+    <result column="value2" jdbcType="VARCHAR" property="value2" />
+    <result column="value3" jdbcType="VARCHAR" property="value3" />
+    <result column="value4" jdbcType="DECIMAL" property="value4" />
+    <result column="value5" jdbcType="DECIMAL" property="value5" />
+    <result column="value6" jdbcType="DECIMAL" property="value6" />
+    <result column="value7" jdbcType="DECIMAL" property="value7" />
+    <result column="value8" jdbcType="VARCHAR" property="value8" />
+    <result column="value9" jdbcType="DECIMAL" property="value9" />
+    <result column="value10" jdbcType="VARCHAR" property="value10" />
+    <result column="countnum" jdbcType="BIGINT" property="countnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+     pid, begindt, value1, value2, value3, value4, value5, value6, value7, value8,
+    value9, value10, countnum
+  </sql>
+
+  <select id="selectExcel26dataByTime" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from excel26data
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel26data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByTime" parameterType="java.lang.String">
+    delete from excel26data
+    where begindt BETWEEN #{beginDT,jdbcType=VARCHAR} and #{endDT,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from excel26data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.byd.emg.pojo.Excel26data">
+    insert into excel26data (pid, begindt,
+      value1, value2, value3, 
+      value4, value5, value6, 
+      value7, value8, value9, 
+      value10, countnum)
+    values ( #{pid,jdbcType=BIGINT}, #{begindt,jdbcType=CHAR},
+      #{value1,jdbcType=VARCHAR}, #{value2,jdbcType=VARCHAR}, #{value3,jdbcType=VARCHAR}, 
+      #{value4,jdbcType=DECIMAL}, #{value5,jdbcType=DECIMAL}, #{value6,jdbcType=DECIMAL}, 
+      #{value7,jdbcType=DECIMAL}, #{value8,jdbcType=VARCHAR}, #{value9,jdbcType=DECIMAL}, 
+      #{value10,jdbcType=VARCHAR}, #{countnum,jdbcType=BIGINT})
+  </insert>
+
+  <insert id="insertExcel26dataList" parameterType="java.util.List">
+    insert into excel26data (
+    <include refid="Base_Column_List" />
+    )values
+    <foreach collection="excel26dataList" index="index" item="item" separator=",">
+      (
+      #{item.pid,jdbcType=BIGINT}, #{item.begindt,jdbcType=CHAR},
+      #{item.value1,jdbcType=VARCHAR}, #{item.value2,jdbcType=VARCHAR}, #{item.value3,jdbcType=VARCHAR},
+      #{item.value4,jdbcType=DECIMAL}, #{item.value5,jdbcType=DECIMAL}, #{item.value6,jdbcType=DECIMAL},
+      #{item.value7,jdbcType=DECIMAL}, #{item.value8,jdbcType=VARCHAR}, #{item.value9,jdbcType=DECIMAL},
+      #{item.value10,jdbcType=VARCHAR}, #{item.countnum,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
+  <insert id="insertAfterSelect" parameterType="com.byd.emg.pojo.Excel26data">
+    <foreach collection="excel26dataList" index="index" item="item" separator=";">
+      insert into  excel26data (
+      <include refid="Base_Column_List" />
+      )
+      SELECT
+      #{item.pid,jdbcType=BIGINT}, #{item.begindt,jdbcType=CHAR},
+      #{item.value1,jdbcType=VARCHAR}, #{item.value2,jdbcType=VARCHAR}, #{item.value3,jdbcType=VARCHAR},
+      #{item.value4,jdbcType=DECIMAL}, #{item.value5,jdbcType=DECIMAL}, #{item.value6,jdbcType=DECIMAL},
+      #{item.value7,jdbcType=DECIMAL}, #{item.value8,jdbcType=VARCHAR}, #{item.value9,jdbcType=DECIMAL},
+      #{item.value10,jdbcType=VARCHAR}, #{item.countnum,jdbcType=BIGINT}
+      FROM DUAL WHERE NOT EXISTS (
+      SELECT 1 FROM excel26data WHERE begindt= #{item.begindt,jdbcType=CHAR} LIMIT 1
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.byd.emg.pojo.Excel26data">
+    insert into excel26data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="begindt != null">
+        begindt,
+      </if>
+      <if test="value1 != null">
+        value1,
+      </if>
+      <if test="value2 != null">
+        value2,
+      </if>
+      <if test="value3 != null">
+        value3,
+      </if>
+      <if test="value4 != null">
+        value4,
+      </if>
+      <if test="value5 != null">
+        value5,
+      </if>
+      <if test="value6 != null">
+        value6,
+      </if>
+      <if test="value7 != null">
+        value7,
+      </if>
+      <if test="value8 != null">
+        value8,
+      </if>
+      <if test="value9 != null">
+        value9,
+      </if>
+      <if test="value10 != null">
+        value10,
+      </if>
+      <if test="countnum != null">
+        countnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="value1 != null">
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null">
+        #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="value3 != null">
+        #{value3,jdbcType=VARCHAR},
+      </if>
+      <if test="value4 != null">
+        #{value4,jdbcType=DECIMAL},
+      </if>
+      <if test="value5 != null">
+        #{value5,jdbcType=DECIMAL},
+      </if>
+      <if test="value6 != null">
+        #{value6,jdbcType=DECIMAL},
+      </if>
+      <if test="value7 != null">
+        #{value7,jdbcType=DECIMAL},
+      </if>
+      <if test="value8 != null">
+        #{value8,jdbcType=VARCHAR},
+      </if>
+      <if test="value9 != null">
+        #{value9,jdbcType=DECIMAL},
+      </if>
+      <if test="value10 != null">
+        #{value10,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        #{countnum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.byd.emg.pojo.Excel26data">
+    update excel26data
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="begindt != null">
+        begindt = #{begindt,jdbcType=CHAR},
+      </if>
+      <if test="value1 != null">
+        value1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="value2 != null">
+        value2 = #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="value3 != null">
+        value3 = #{value3,jdbcType=VARCHAR},
+      </if>
+      <if test="value4 != null">
+        value4 = #{value4,jdbcType=DECIMAL},
+      </if>
+      <if test="value5 != null">
+        value5 = #{value5,jdbcType=DECIMAL},
+      </if>
+      <if test="value6 != null">
+        value6 = #{value6,jdbcType=DECIMAL},
+      </if>
+      <if test="value7 != null">
+        value7 = #{value7,jdbcType=DECIMAL},
+      </if>
+      <if test="value8 != null">
+        value8 = #{value8,jdbcType=VARCHAR},
+      </if>
+      <if test="value9 != null">
+        value9 = #{value9,jdbcType=DECIMAL},
+      </if>
+      <if test="value10 != null">
+        value10 = #{value10,jdbcType=VARCHAR},
+      </if>
+      <if test="countnum != null">
+        countnum = #{countnum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.byd.emg.pojo.Excel26data">
+    update excel26data
+    set pid = #{pid,jdbcType=BIGINT},
+      begindt = #{begindt,jdbcType=CHAR},
+      value1 = #{value1,jdbcType=VARCHAR},
+      value2 = #{value2,jdbcType=VARCHAR},
+      value3 = #{value3,jdbcType=VARCHAR},
+      value4 = #{value4,jdbcType=DECIMAL},
+      value5 = #{value5,jdbcType=DECIMAL},
+      value6 = #{value6,jdbcType=DECIMAL},
+      value7 = #{value7,jdbcType=DECIMAL},
+      value8 = #{value8,jdbcType=VARCHAR},
+      value9 = #{value9,jdbcType=DECIMAL},
+      value10 = #{value10,jdbcType=VARCHAR},
+      countnum = #{countnum,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
